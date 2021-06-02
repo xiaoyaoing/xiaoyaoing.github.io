@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/02/avltree/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/28/printCycles/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/06/02/avltree/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2020/12/28/printCycles/" itemprop="url">printCycles</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,147 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-02T11:23:52+08:00">
-                2021-06-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-28T23:53:52+08:00">
+                2020-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>问题描述很简单：判断图中是否有环路，如果有环路，打印出来。</p>
+<p>我采用深度优先搜索的方式来解决这个问题。</p>
+<p><strong>解题思路</strong></p>
+<p>从图的第一个顶点开始搜索，用一个数组path记录已经搜索过的节点。同时用一个数组vis记录节点是否已经访问过。 当我们搜索时，我们用vis来判断当前节点是否访问过，如果访问过，我们就发现了一个环路（因为之前我们已经到过这个节点，现在又到这个节点了，说明就这个路就是一个环） 这个时候我们退出循环，把之前访问到的这个节点到第二次访问到这个节点的中所有的节点都打印出来。就是一个环。同时我们要用一个int值n来记录当前是搜索路径上的第几个节点</p>
+<p>我们来简单地看个例子。</p>
+<p>![<a target="_blank" rel="noopener" href="https://se2.oss-cn-beijing.aliyuncs.com/uPic/graph.jpg]">https://se2.oss-cn-beijing.aliyuncs.com/uPic/graph.jpg]</a></p>
+<p>下一个搜索的节点为节点1，path为{0,1}</p>
+<p>节点1搜索的第一个节点为2，节点2搜索的第一个节点为3，节点3搜索的第一个节点为0，搜索到0的时候我们发现0我们好像已经访问过了，于是乎就找到了一个环，此时path为{0，1，2，3，0}，然后返回。这个时候深搜返回到节点3（因为节点3要搜节点0和节点4，节点1），节点3依次搜索节点4，0，搜索到0的时候我们发现这又是一个环路。path为{0,1,2,3,4,0},打印，</p>
+<p>从节点3返回至节点2，节点2只有节点3要搜，所以返回到节点1.节点1继续搜至节点3，此时path为{0,1,3}节点3先搜索至节点0,path为{0,1,3,0};打印后返回</p>
+<p>搜索节点4至节点0 path为{0,1,3,4,0};</p>
+<p>最终所有环路为</p>
+<p>0 1 2 3 0；0 1 2 3 4 0； 0 1 3 0；0 1 3 4 0；</p>
+<p>贴个代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">public class Graph &#123;</span><br><span class="line">    class vetrx&#123;</span><br><span class="line">        int id;</span><br><span class="line">        int val;</span><br><span class="line">        public  vetrx()&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        public vetrx(int i, int i1) &#123;</span><br><span class="line">            this.id=i;</span><br><span class="line">            this.val=i1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    vetrx[] vetrxs;</span><br><span class="line">    int vnum;</span><br><span class="line">    HashMap&lt;vetrx ,LinkedList&lt;vetrx&gt;&gt; graph=new HashMap&lt;&gt;();</span><br><span class="line">    int[][] w;</span><br><span class="line">    HashMap&lt;vetrx,Integer&gt; Dijkstra(vetrx v)&#123;</span><br><span class="line">        HashMap&lt;vetrx,Integer&gt; ans=new HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        return  null;</span><br><span class="line">    &#125;</span><br><span class="line">    public  Graph(int[] vet,int[][] gra)&#123;</span><br><span class="line">        this.vnum=vet.length;</span><br><span class="line">        this.vetrxs=new vetrx[vnum];</span><br><span class="line">        for(int i=0;i&lt;vnum;i++)</span><br><span class="line">        &#123;   vetrxs[i]=new vetrx(i,vet[i]); &#125;</span><br><span class="line">        for(int i=0;i&lt;vnum;i++)&#123;</span><br><span class="line">            LinkedList&lt;vetrx&gt; vs=new LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">            for(int j=0;j&lt;vnum;j++)&#123;</span><br><span class="line">               if(gra[i][j]!=0)</span><br><span class="line">                   vs.add(vetrxs[j]);</span><br><span class="line">            &#125;</span><br><span class="line">            graph.put(vetrxs[i],vs);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    LinkedList&lt;vetrx&gt; path=new LinkedList();</span><br><span class="line">    void dfs(vetrx v,int n , boolean[] vis)&#123;</span><br><span class="line">        if(n==vnum+2)</span><br><span class="line">            return;</span><br><span class="line">        path.set(n,v);</span><br><span class="line">        if(vis[v.id])&#123;</span><br><span class="line">            int first=path.indexOf(v);</span><br><span class="line">            for(int i=first;i&lt;=n;i++)</span><br><span class="line">                System.out.print(path.get(i).id);</span><br><span class="line">            System.out.println();</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[v.id]=true;</span><br><span class="line">        for(vetrx nxt:graph.get(v))</span><br><span class="line">            dfs(nxt,n+1,vis);</span><br><span class="line">        vis[v.id]=false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public  void printallthecycle()&#123;</span><br><span class="line">        for(int i=0;i&lt;vnum+2;i++)</span><br><span class="line">           path.add(new vetrx());</span><br><span class="line">        LinkedList&lt;vetrx&gt; p=new LinkedList&lt;&gt;();</span><br><span class="line">        boolean vis[] =new boolean[vnum];</span><br><span class="line">        p.add(vetrxs[0]);</span><br><span class="line">        dfs(vetrxs[0],1,vis);</span><br><span class="line"></span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>graph类有个构造函数 第一个数组用来说明图节点的val，第二个数组用来说明节点之间边的关系。这个类的边关系用hashmap存储。</p>
+<p>这边有一个函数用来测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">import ADT.Graph;</span><br><span class="line">import ADT.Tree;</span><br><span class="line">import ADT.node;</span><br><span class="line">import org.junit.Before;</span><br><span class="line">import org.junit.Test;</span><br><span class="line"></span><br><span class="line">import java.io.ByteArrayOutputStream;</span><br><span class="line">import java.io.PrintStream;</span><br><span class="line"></span><br><span class="line">import static org.junit.Assert.assertEquals;</span><br><span class="line"></span><br><span class="line">public class Graphtest &#123;</span><br><span class="line">    PrintStream oldPrintStream = System.out; //将原来的System.out交给printStream 对象保存</span><br><span class="line">    ByteArrayOutputStream bos = new ByteArrayOutputStream();</span><br><span class="line">    @Before</span><br><span class="line">   public void init()&#123;</span><br><span class="line"></span><br><span class="line">       System.setOut(new PrintStream(bos));</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public  void printcycletest1()</span><br><span class="line">    &#123; int[] vrtexs=&#123;1,2,3,4,5,6,7,8&#125;;</span><br><span class="line">        int[][] gra=new int[8][8];</span><br><span class="line">        for(int i=0;i&lt;4;i++)</span><br><span class="line">            gra[i][i+1]=1;</span><br><span class="line">        gra[4][1]=1;</span><br><span class="line">        gra[1][1]=1;</span><br><span class="line">        gra[3][5]=1;</span><br><span class="line">        gra[5][6]=1;</span><br><span class="line">        gra[6][7]=1;</span><br><span class="line">        gra[7][5]=1;</span><br><span class="line">        Graph graph=new Graph(vrtexs,gra);</span><br><span class="line">        graph.printallthecycle();</span><br><span class="line">        assertEquals(bos.toString(),&quot;11\n&quot; +</span><br><span class="line">                &quot;12341\n&quot; +</span><br><span class="line">                &quot;5675\n&quot;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public  void printcycletest2()&#123;</span><br><span class="line">        int[] vrtexs=&#123;0,1,2,3,4&#125;;</span><br><span class="line">        int [][] gra=new int[5][5];</span><br><span class="line">        gra[0][1]=1;</span><br><span class="line">        gra[1][2]=1; gra[1][3]=1;gra[2][3]=1;gra[3][0]=1;</span><br><span class="line">        gra[3][4]=1;gra[4][0]=1;</span><br><span class="line">        Graph graph=new Graph(vrtexs,gra);</span><br><span class="line">        graph.printallthecycle();</span><br><span class="line">        assertEquals(bos.toString(),&quot;01230\n&quot; +</span><br><span class="line">                &quot;012340\n&quot; +</span><br><span class="line">                &quot;0130\n&quot; +</span><br><span class="line">                &quot;01340\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就这么多，希望老婆大大看完如果有不懂的可以马上来问我（这篇博客是因为老婆因为这个算法心情不好所以写的555）老婆心情不好俺自己心情也不好了</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/21/avltree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/12/21/avltree/" itemprop="url">first</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-21T11:53:21+08:00">
+                2020-12-21
               </time>
             
 
@@ -371,7 +510,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/02/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/21/first/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -390,7 +529,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/06/02/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2020/12/21/first/" itemprop="url">first</a></h1>
         
 
         <div class="post-meta">
@@ -402,8 +541,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-02T11:23:52+08:00">
-                2021-06-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-21T11:53:21+08:00">
+                2020-12-21
               </time>
             
 
@@ -442,19 +581,9 @@
       
         
           
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+            <p>菜鸡的自我介绍</p>
+<hr>
+<p>袁军平<br>南大软院大二本科生 目前菜鸡一枚<br>lol爱好者，锐雯 蛮王专精玩家<br>喜欢看一些国漫 天行九歌 斗破苍穹之类的<br>会一点乒乓球和羽毛球<br>目前想学一下web技术（自己做一个小的项目），想啃点算法，想搞好线代（x）<br>国家级退堂鼓表演大师<br>一年半在南大软院的时间好像没学什么。细细想来大一上学了些简单的py和c。大一下在家里实在学习效率很差，每天打打游戏上上网课就过去了。好像只学了一些简单的java语法？和jvm的一些知识。大二上目前还没过完。尚不置评。<br>经常吐槽软院的教学，希望自己能找机会多学一些东西（虽然自己的自制力实在是很拉闸）<br>而且自己的记忆力确实不太好（我也想有个好脑瓜），看到wgg的博客写了好多很有用的东西，觉得写博客或许是个好的记录方式？（在此特别感谢wgg）<br>以上</p>
 
           
         
@@ -503,7 +632,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/02/hello-world%E7%9A%84%E5%89%AF%E6%9C%AC2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/21/kmp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -522,7 +651,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/06/02/hello-world%E7%9A%84%E5%89%AF%E6%9C%AC2/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2020/12/21/kmp/" itemprop="url">kmp</a></h1>
         
 
         <div class="post-meta">
@@ -534,8 +663,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-02T11:23:52+08:00">
-                2021-06-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-21T11:53:10+08:00">
+                2020-12-21
               </time>
             
 
@@ -574,20 +703,41 @@
       
         
           
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <p>字符串匹配-kmp算法</p>
+<p>（第一次用md写东西，语法不太会，可能格式有点拉闸）</p>
+<p>字符串匹配问题指的是给定两个字符串s1(母串)以及s2（模式串），判断母串是否包含模式串，如果包含，模式串首先出现在母串的哪个位置的一类问题。</p>
+<p>对于这类问题，我们首先能想到的就是一种暴力解法，即从s1的每个字符开始，判断从这个字符开始有没有和s2相同的子串。</p>
+<p>我们假定s1的长度为n，s2的长度为m</p>
+<p>这种暴力解法的时间复杂度为O(mn)显然这不是我们能接受的。</p>
+<p>考虑这种暴力解法存在的问题。</p>
+<p>S1:abcdabced</p>
+<p>S2:abce</p>
+<p>假定我们使用的指针是i和j，使用这种朴素的解法时，从第一个字符遍历时，当i=4，j=4时我们退出循环，同时又从i=2与j=0开始遍历。</p>
+<p>但其实我们这时已经知道的是s1的前三位与s2的前三位是相同的。我们忽略了这个信息。换句话说，我们之前计算的结果被我们抛弃掉了。第一个字符遍历在哪里停止对之后的算法都不会产生任何影响。</p>
+<p>S1:abababcd</p>
+<p>S2:ababcd</p>
+<p>下面介绍一下kmp算法，这种算法复杂度可以达到线性时间。</p>
+<p>我们注意到这样一个事实。</p>
+<p>假设匹配失败时，s2中的指针位于s2的j位置。如果s2的[0:n-1]子串，存在一对前缀和后缀是相同的，假设长度为k，那么我们可以直接让j回退到位置k开始匹配。直观地讲就是利用了这部分前缀和后缀相同，s1中后缀和s2中的前缀对应来减少比较次数。</p>
+<p>如s1和s2在位置4匹配失败。子串abab对应的k为2，我们这时已经比较的可以认为是s1[2:4]与s2的[0:2] 从i=4,j=2开始比较即可.</p>
+<p>于是kmp算法的基本框架如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int kmp(string s1,string s2)&#123;</span><br><span class="line">    setnext(s2);</span><br><span class="line">    int p1=0;</span><br><span class="line">    int p2=0;</span><br><span class="line">    while(p2&lt;s2.length() &amp;&amp; p1&lt;s1.length())</span><br><span class="line">    &#123;</span><br><span class="line">        if(s1[p1]==s2[p2])</span><br><span class="line">        &#123;</span><br><span class="line">            p1++; p2++;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(p2==0) p1++;</span><br><span class="line">        else p2=nxt[p1];</span><br><span class="line">    &#125;</span><br><span class="line">    if(p2==s2.length())</span><br><span class="line">        return  p1-p2;  //匹配成功</span><br><span class="line">    return  -1;  //匹配失败</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>下面问题的关键则是获得next数组。</p>
+<p>next数组的定义：next[i]代表子串[0:i]的前缀和后缀相等的最大前缀长度。</p>
+<p>至于next数组的得出，我们考虑用一种递推的方式。</p>
+<p>如果我们知道了next[0],next[1]……next[n-1]怎么得到next[n]呢。</p>
+<p>记next[n-1]为now</p>
+<p>很容易想到，如果S[n]是等于S[next[n-1]]的，那么next[n]=next[n-1]+1;</p>
+<p>如果不等，接下来我们让now缩小，直至符合要求。</p>
+<p>now如何缩小并且满足s的now-前缀和s的now-后缀是相等呢？</p>
+<p>我们注意到当前的前缀与后缀是相同的，故我们只需取next[now-1]即可（这样是四部分相同，仍然满足前缀等于后缀的条件）</p>
+<p>如果now缩小到0说明当前i匹配失败，i直接+1即可。</p>
+<p>kmp c++代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace  std;</span><br><span class="line">vector&lt;int &gt; nxt;</span><br><span class="line">void setnext(string s)&#123;</span><br><span class="line">   int p=1;</span><br><span class="line">   int now=0;</span><br><span class="line">   nxt.push_back(0);</span><br><span class="line">   while(p&lt;s.length())</span><br><span class="line">   &#123;</span><br><span class="line">       if(s[now]==s[p])&#123;</span><br><span class="line">           p++;now++;</span><br><span class="line">           nxt.push_back(now);</span><br><span class="line">       &#125;</span><br><span class="line">       else if(now!=0)</span><br><span class="line">           now=nxt[now-1];</span><br><span class="line">       else &#123;</span><br><span class="line">           nxt.push_back(now);</span><br><span class="line">           p++;</span><br><span class="line">       &#125;&#125;</span><br><span class="line">&#125;</span><br><span class="line">int kmp(string s1,string s2)&#123;</span><br><span class="line">    setnext(s2);</span><br><span class="line">    int p1=0;</span><br><span class="line">    int p2=0;</span><br><span class="line">    while(p2&lt;s2.length() &amp;&amp; p1&lt;s1.length())</span><br><span class="line">    &#123;</span><br><span class="line">        if(s1[p1]==s2[p2])</span><br><span class="line">        &#123;</span><br><span class="line">            p1++; p2++;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(p2==0) p1++;</span><br><span class="line">        else p2=nxt[p1];</span><br><span class="line">    &#125;</span><br><span class="line">    if(p2==s2.length())</span><br><span class="line">        return  p1-p2;  //匹配成功</span><br><span class="line">    return  -1;  //匹配失败</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+<p>kmp java：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class Kmp &#123;</span><br><span class="line">    public  static  void  main(String[] args)&#123;</span><br><span class="line">        System.out.println(new Kmp().kmp(&quot;1234234&quot;,&quot;234&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">    int [] setnext(String s)&#123;</span><br><span class="line">        int[] next=new int[s.length()];</span><br><span class="line">        next[0]=0;</span><br><span class="line">        int now=0;</span><br><span class="line">        int cur=1;</span><br><span class="line">        while(cur&lt;s.length())&#123;</span><br><span class="line">            if(s.charAt(now)==s.charAt(cur))</span><br><span class="line">            &#123;</span><br><span class="line">               now++; next[cur]=now;cur++;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(now!=0)</span><br><span class="line">                now=next[now-1];</span><br><span class="line">            else &#123;</span><br><span class="line">                next[cur]=0;</span><br><span class="line">                cur++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;   return  next;</span><br><span class="line">    &#125;</span><br><span class="line">    int  kmp(String s1,String s2)&#123;</span><br><span class="line">        int[] next=setnext(s2);</span><br><span class="line">        int i=0;int j=0;</span><br><span class="line">        while(i&lt;s1.length() &amp;&amp; j&lt;s2.length())</span><br><span class="line">        &#123;</span><br><span class="line">            if(s1.charAt(i)==s2.charAt(j))&#123;</span><br><span class="line">                i++;j++;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(j!=0)j=next[j];</span><br><span class="line">            else i++;</span><br><span class="line">        &#125;</span><br><span class="line">        if(j==s2.length()) return i-j;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -668,7 +818,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -676,6 +826,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
