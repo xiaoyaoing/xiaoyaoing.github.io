@@ -239,6 +239,309 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yjpwzy1314.com/2021/06/08/DHCP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yjp的个人小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/08/DHCP/" itemprop="url">DHCP,Routing</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-08T19:19:59+08:00">
+                2021-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="DHCP-动态主机配置协议"><a href="#DHCP-动态主机配置协议" class="headerlink" title="DHCP 动态主机配置协议"></a>DHCP 动态主机配置协议</h3><h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p>发现：client广播发出dhcp报文</p>
+<p>响应：server在ip地址池中查找合法的ip地址，发出dhcpoffer报文给client，</p>
+<p>选择：client选择一个offer报文，发送一个dhcp request广播数据包</p>
+<p>租约确定：server接到request后 如果广播成功，以ack确认，反之以nak确认</p>
+<p>租期续约：DHCP Client直接向为其提供IP地址的DHCP Server发送DHCP Request消息，收到回应的DHCP ACK消息 后， DHCP Client根据所提供的新的租期以及其它更新的 TCP/IP参数更新自己的配置，IP租用更新完成</p>
+<p>租期释放：client不需要分配ip地址时 发送release报文 释放租约</p>
+<h4 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h4><p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608195554228.png" alt="image-20210608195554228"></p>
+<p>op：报文类型1表示请求 0代表应答</p>
+<p>htype：硬件类型</p>
+<p>hlen：长度</p>
+<h4 id="DHCP欺骗以及防范"><a href="#DHCP欺骗以及防范" class="headerlink" title="DHCP欺骗以及防范"></a>DHCP欺骗以及防范</h4><p> client 通过广播寻找服务器，只接受第一个到达的</p>
+<p>非授权的dhcp先应答，就被欺骗</p>
+<h5 id="防范："><a href="#防范：" class="headerlink" title="防范："></a>防范：</h5><p>​    指定主机可以配置dhcp server（很难防范）</p>
+<p>​    ciso：交换机使用dhcp snoping 只有认证过的dhcp server才可以通过交换机</p>
+<h3 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h3><p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608200651144.png" alt="image-20210608200651144"></p>
+<p>RAM 访问比较快 不用顺序 </p>
+<p>存储 路由表 ARP 快速交换的缓存</p>
+<p> nvram （既希望访问快，又希望没电时也可以，用特定电池） 用来保存一些配置信息 </p>
+<p>flash 相当于磁盘 可以更改 读写一般来说比磁盘快 放网络操作系统等待</p>
+<p>rom（readonlymemory） 放post</p>
+<p>路由器启动过程：</p>
+<p>1.post 检查硬件信息等是否正确（与rom对比）</p>
+<p>2.定位ios 载入ios</p>
+<p>3.引入nvram配置信息（如果没有，引入手工配置）</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608202329551.png" alt="image-20210608202329551"></p>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>静态路由：</p>
+<p>手动配置     </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yjpwzy1314.com/2021/06/08/OSI%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yjp的个人小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/08/OSI%E6%A8%A1%E5%9E%8B/" itemprop="url">OSI模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-08T11:31:49+08:00">
+                2021-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h3><p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608115801644.png" alt="image-20210608115801644"></p>
+<h4 id="1-物理层"><a href="#1-物理层" class="headerlink" title="1.物理层"></a>1.物理层</h4><h4 id="2-数据链路层"><a href="#2-数据链路层" class="headerlink" title="2.数据链路层"></a>2.数据链路层</h4><h4 id="3-网络层"><a href="#3-网络层" class="headerlink" title="3.网络层"></a>3.网络层</h4><h4 id="4-传输层"><a href="#4-传输层" class="headerlink" title="4.传输层"></a>4.传输层</h4><h4 id="5-Layer-5-7-会话层-表示层-应用层"><a href="#5-Layer-5-7-会话层-表示层-应用层" class="headerlink" title="5.Layer 5-7 会话层 表示层 应用层"></a>5.Layer 5-7 会话层 表示层 应用层</h4><h5 id="会话层："><a href="#会话层：" class="headerlink" title="会话层："></a>会话层：</h5><p>开始会话前包括同步管理，双工或是半双工等。</p>
+<p>建立连接 传输数据 每次传完数据同步一次（次同步点） 每传输几次建立一个主同步点，如果出现故障就会返回主同步点（恢复点）。    </p>
+<h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608114718638.png" alt="image-20210608114718638"></h4><h5 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h5><p>​    解决不同系统的编码等问题（展示成接收方可以理解）</p>
+<p>​    主要功能：数据格式，数据压缩标准，数据加密</p>
+<p>​    先协商编码标准等</p>
+<h5 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h5><p>​    为用户提供服务 不同协议有不同应用情况</p>
+<p>http：超文本传输协议</p>
+<p>html: 超文本标记语言</p>
+<p>统一资源定位符 URL 对因特网上得到的资源位置和访问方法的一种简洁表示</p>
+<p>&lt;url访问方式&gt;&lt;主机(ip)&gt;&lt;端口&gt;&lt;路径&gt;</p>
+<p>面向事务，无状态，无连接，http daemon ：万维网服务器等待http请求的进程</p>
+<p>http报文结构：</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608123208218.png" alt="image-20210608123208218"></p>
+<p>ftp与tftp</p>
+<p>ftp：可靠的面向连接的文件传输服务 基于tcp</p>
+<p>端口21 控制连接</p>
+<p>端口20 数据传输（连接成功）</p>
+<p>tftp 不面向连接 基于udp 容易去部署 不支持交互</p>
+<p>ftp主进程工作</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608132245390.png" alt="image-20210608132245390">    </p>
+<p>本地命令 翻译到标准格式 传送到服务器 ftp服务器翻译成服务器的格式</p>
+<p>email 使用smtp与pop3</p>
+<p>smtp 规定两个相互通信的进程的信息传送 c</p>
+<p>Pop3 接受邮件</p>
+<p>MIME标准 将用户的一些非ascii数据转换成ascii数据</p>
+<h4 id="SNMP-简单网络管理协议"><a href="#SNMP-简单网络管理协议" class="headerlink" title="SNMP 简单网络管理协议"></a>SNMP 简单网络管理协议</h4><h4 id="DNS-域名系统"><a href="#DNS-域名系统" class="headerlink" title="DNS 域名系统"></a>DNS 域名系统</h4><p>ip映射到域名，使用者通过域名访问</p>
+<p>越后面的level 域名等级越高</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608165020286.png" alt="image-20210608165020286"></p>
+<p>全球有多个根域名服务器供dns解析 </p>
+<p>配置一个主机 ip 子网掩码 网关 dnsserver </p>
+<p> 本地域名器内解析逐层递归请求 请求到后逐层返还 </p>
+<p> 本地服务器之上就是直接访问根域名服务器</p>
+<p>本地域名服务器在拿到结果后会存到本地数据库</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608191431197.png" alt="image-20210608191431197"></p>
+<p>应用层通信两种分类：</p>
+<p>www.,http通信 无上下文连接</p>
+<p>talent，ftp，维持上下文</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yjpwzy1314.com/2021/06/02/ACL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -281,6 +584,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%92%E8%81%94%E7%BD%91%E8%AE%A1%E7%AE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">互联网计算</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -310,7 +635,35 @@
       
         
           
-            <h3 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h3>
+            <p>防火墙：软件硬件构成的系统，特殊编程的路由器，两个网络之间实施介入控制策略。</p>
+<p>防火墙内部是可以信赖的。外部是不可信赖的互联网。</p>
+<p>![image-20210606154155012](/Users/yjp/Library/Application Support/typora-user-images/image-20210606154155012.png)</p>
+<p>防火墙功能：阻止与允许</p>
+<p>阻止：阻止 某种通信量通过防火墙，可以是内部到外部也可以是外部到内部。</p>
+<h4 id="防火墙技术"><a href="#防火墙技术" class="headerlink" title="防火墙技术"></a>防火墙技术</h4><h5 id="网络级防火墙"><a href="#网络级防火墙" class="headerlink" title="网络级防火墙"></a>网络级防火墙</h5><p>​        分组过滤：检查所有流入本网络的信息</p>
+<p>​        授权服务器：检查用户登陆是否合法。</p>
+<h5 id="应用级防火墙"><a href="#应用级防火墙" class="headerlink" title="应用级防火墙"></a>应用级防火墙</h5><p>应用程序进行接入控制</p>
+<h3 id="ACL-访问控制列表"><a href="#ACL-访问控制列表" class="headerlink" title="ACL  访问控制列表"></a>ACL  访问控制列表</h3><p>默认情况下路由器是让所有报文通过的。如果想让一些报文无法通过就需要配置acl。</p>
+<h4 id="标准ACL（基于原地址）"><a href="#标准ACL（基于原地址）" class="headerlink" title="标准ACL（基于原地址）"></a>标准ACL（基于原地址）</h4><p>阻止报文需要：</p>
+<p>源地址，目的地址，上层协议的内容(如端口)。</p>
+<p>报文处理：</p>
+<p>报文和所有语句按顺序进行匹配。有匹配的话后面的语句就不进行计算。</p>
+<p>一个报文要么通过要么匹配</p>
+<p>如果所有语句都不匹配就默认deny</p>
+<h5 id="路由器使用acl"><a href="#路由器使用acl" class="headerlink" title="路由器使用acl"></a>路由器使用acl</h5><p>1.先检查packet是否可以路由。如果可以，进行2</p>
+<p>2.检查是否有acl配置 有acl配置就进行acl校验 选择拒绝转发或者允许转发 如果没acl配置就直接转发。</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210606165321437.png" alt="image-20210606165321437"></p>
+<p>标准acl配置：</p>
+<p>全局配置情况下：access-list number permint/deny ip</p>
+<p>interface : ip access-group number  out/in</p>
+<p>标准acl要放在里要控制的目标主机越近越好，避免对源地址影响大</p>
+<p>标准acl在有些情况下对带宽消耗大</p>
+<h3 id="扩展ACL"><a href="#扩展ACL" class="headerlink" title="扩展ACL"></a>扩展ACL</h3><p>扩展acl （100-199）</p>
+<p>可以基于目标地址进行操作，ip协议的位置，上层的tcp/ip协议</p>
+<p>扩展acl格式</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608001902287.png" alt="image-20210608001902287"></p>
+<p>扩展acl在配置时尽量选择距离源地址近的地方配置 可以避免传输过程中带宽的浪费。</p>
+
           
         
       
@@ -995,7 +1348,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1006,7 +1359,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1017,7 +1370,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>

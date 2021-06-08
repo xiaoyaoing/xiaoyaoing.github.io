@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="菜鸡的自我介绍  袁军平南大软院大二本科生 目前菜鸡一枚lol爱好者，锐雯 蛮王专精玩家喜欢看一些国漫 天行九歌 斗破苍穹之类的会一点乒乓球和羽毛球目前想学一下web技术（自己做一个小的项目），想啃点算法，想搞好线代（x）国家级退堂鼓表演大师一年半在南大软院的时间好像没学什么。细细想来大一上学了些简单的py和c。大一下在家里实在学习效率很差，每天打打游戏上上网课就过去了。好像只学了一些简单的jav">
+<meta name="description" content="DHCP 动态主机配置协议流程发现：client广播发出dhcp报文 响应：server在ip地址池中查找合法的ip地址，发出dhcpoffer报文给client， 选择：client选择一个offer报文，发送一个dhcp request广播数据包 租约确定：server接到request后 如果广播成功，以ack确认，反之以nak确认 租期续约：DHCP Client直接向为其提供IP地址的D">
 <meta property="og:type" content="article">
-<meta property="og:title" content="first">
-<meta property="og:url" content="https://yjpwzy1314.com/2020/12/21/first/index.html">
+<meta property="og:title" content="DHCP,Routing">
+<meta property="og:url" content="https://yjpwzy1314.com/2021/06/08/DHCP/index.html">
 <meta property="og:site_name" content="yjp的个人小窝">
-<meta property="og:description" content="菜鸡的自我介绍  袁军平南大软院大二本科生 目前菜鸡一枚lol爱好者，锐雯 蛮王专精玩家喜欢看一些国漫 天行九歌 斗破苍穹之类的会一点乒乓球和羽毛球目前想学一下web技术（自己做一个小的项目），想啃点算法，想搞好线代（x）国家级退堂鼓表演大师一年半在南大软院的时间好像没学什么。细细想来大一上学了些简单的py和c。大一下在家里实在学习效率很差，每天打打游戏上上网课就过去了。好像只学了一些简单的jav">
+<meta property="og:description" content="DHCP 动态主机配置协议流程发现：client广播发出dhcp报文 响应：server在ip地址池中查找合法的ip地址，发出dhcpoffer报文给client， 选择：client选择一个offer报文，发送一个dhcp request广播数据包 租约确定：server接到request后 如果广播成功，以ack确认，反之以nak确认 租期续约：DHCP Client直接向为其提供IP地址的D">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-21T03:53:21.000Z">
-<meta property="article:modified_time" content="2021-06-02T06:26:18.477Z">
+<meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608195554228.png">
+<meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608200651144.png">
+<meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608202329551.png">
+<meta property="article:published_time" content="2021-06-08T11:19:59.000Z">
+<meta property="article:modified_time" content="2021-06-08T12:31:27.009Z">
 <meta property="article:author" content="yjp">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608195554228.png">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://yjpwzy1314.com/2020/12/21/first/"/>
+  <link rel="canonical" href="https://yjpwzy1314.com/2021/06/08/DHCP/"/>
 
 
 
 
 
-  <title>first | yjp的个人小窝</title>
+  <title>DHCP,Routing | yjp的个人小窝</title>
   
 
 
@@ -237,12 +241,12 @@
   
   
 
-  <article class="post post-type-about" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yjpwzy1314.com/2020/12/21/first/">
+    <link itemprop="mainEntityOfPage" href="https://yjpwzy1314.com/2021/06/08/DHCP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -259,7 +263,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">first</h1>
+          <h1 class="post-title" itemprop="name headline">DHCP,Routing</h1>
         
 
         <div class="post-meta">
@@ -271,8 +275,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-21T11:53:21+08:00">
-                2020-12-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-08T19:19:59+08:00">
+                2021-06-08
               </time>
             
 
@@ -309,9 +313,33 @@
       
 
       
-        <p>菜鸡的自我介绍</p>
-<hr>
-<p>袁军平<br>南大软院大二本科生 目前菜鸡一枚<br>lol爱好者，锐雯 蛮王专精玩家<br>喜欢看一些国漫 天行九歌 斗破苍穹之类的<br>会一点乒乓球和羽毛球<br>目前想学一下web技术（自己做一个小的项目），想啃点算法，想搞好线代（x）<br>国家级退堂鼓表演大师<br>一年半在南大软院的时间好像没学什么。细细想来大一上学了些简单的py和c。大一下在家里实在学习效率很差，每天打打游戏上上网课就过去了。好像只学了一些简单的java语法？和jvm的一些知识。大二上目前还没过完。尚不置评。<br>经常吐槽软院的教学，希望自己能找机会多学一些东西（虽然自己的自制力实在是很拉闸）<br>而且自己的记忆力确实不太好（我也想有个好脑瓜），看到wgg的博客写了好多很有用的东西，觉得写博客或许是个好的记录方式？（在此特别感谢wgg）<br>以上</p>
+        <h3 id="DHCP-动态主机配置协议"><a href="#DHCP-动态主机配置协议" class="headerlink" title="DHCP 动态主机配置协议"></a>DHCP 动态主机配置协议</h3><h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p>发现：client广播发出dhcp报文</p>
+<p>响应：server在ip地址池中查找合法的ip地址，发出dhcpoffer报文给client，</p>
+<p>选择：client选择一个offer报文，发送一个dhcp request广播数据包</p>
+<p>租约确定：server接到request后 如果广播成功，以ack确认，反之以nak确认</p>
+<p>租期续约：DHCP Client直接向为其提供IP地址的DHCP Server发送DHCP Request消息，收到回应的DHCP ACK消息 后， DHCP Client根据所提供的新的租期以及其它更新的 TCP/IP参数更新自己的配置，IP租用更新完成</p>
+<p>租期释放：client不需要分配ip地址时 发送release报文 释放租约</p>
+<h4 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h4><p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608195554228.png" alt="image-20210608195554228"></p>
+<p>op：报文类型1表示请求 0代表应答</p>
+<p>htype：硬件类型</p>
+<p>hlen：长度</p>
+<h4 id="DHCP欺骗以及防范"><a href="#DHCP欺骗以及防范" class="headerlink" title="DHCP欺骗以及防范"></a>DHCP欺骗以及防范</h4><p> client 通过广播寻找服务器，只接受第一个到达的</p>
+<p>非授权的dhcp先应答，就被欺骗</p>
+<h5 id="防范："><a href="#防范：" class="headerlink" title="防范："></a>防范：</h5><p>​    指定主机可以配置dhcp server（很难防范）</p>
+<p>​    ciso：交换机使用dhcp snoping 只有认证过的dhcp server才可以通过交换机</p>
+<h3 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h3><p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608200651144.png" alt="image-20210608200651144"></p>
+<p>RAM 访问比较快 不用顺序 </p>
+<p>存储 路由表 ARP 快速交换的缓存</p>
+<p> nvram （既希望访问快，又希望没电时也可以，用特定电池） 用来保存一些配置信息 </p>
+<p>flash 相当于磁盘 可以更改 读写一般来说比磁盘快 放网络操作系统等待</p>
+<p>rom（readonlymemory） 放post</p>
+<p>路由器启动过程：</p>
+<p>1.post 检查硬件信息等是否正确（与rom对比）</p>
+<p>2.定位ios 载入ios</p>
+<p>3.引入nvram配置信息（如果没有，引入手工配置）</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210608202329551.png" alt="image-20210608202329551"></p>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>静态路由：</p>
+<p>手动配置     </p>
 
       
     </div>
@@ -336,8 +364,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/12/21/avltree/" rel="next" title="avltree">
-                <i class="fa fa-chevron-left"></i> avltree
+              <a href="/2021/06/08/OSI%E6%A8%A1%E5%9E%8B/" rel="next" title="OSI模型">
+                <i class="fa fa-chevron-left"></i> OSI模型
               </a>
             
           </div>
@@ -345,10 +373,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/12/28/printCycles/" rel="prev" title="printCycles">
-                printCycles <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -400,8 +424,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -465,6 +498,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP-%E5%8A%A8%E6%80%81%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">DHCP 动态主机配置协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">报文结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DHCP%E6%AC%BA%E9%AA%97%E4%BB%A5%E5%8F%8A%E9%98%B2%E8%8C%83"><span class="nav-number">1.3.</span> <span class="nav-text">DHCP欺骗以及防范</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%B2%E8%8C%83%EF%BC%9A"><span class="nav-number">1.3.1.</span> <span class="nav-text">防范：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">路由器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1"><span class="nav-number">3.</span> <span class="nav-text">路由</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
