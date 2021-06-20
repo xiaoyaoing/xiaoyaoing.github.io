@@ -87,13 +87,14 @@
 <meta property="og:description" content="chapter1数据模型： 层次数据模型 网状数据模型 关系模型 面向对象模型 层次数据模型： ![image-20210616224108753](&#x2F;Users&#x2F;yjp&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20210616224108753.png) 网状数据模型  关系模型 对象模型 Chapter2  关系模型cap数据库">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210616224532403.png">
+<meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210619134837121.png">
 <meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210619141356015.png">
 <meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210620003514253.png">
 <meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210620001121035.png">
 <meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210620001409808.png">
 <meta property="og:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210620001432548.png">
 <meta property="article:published_time" content="2021-06-16T09:02:21.000Z">
-<meta property="article:modified_time" content="2021-06-20T06:57:34.800Z">
+<meta property="article:modified_time" content="2021-06-20T10:43:42.572Z">
 <meta property="article:author" content="yjp">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210616224532403.png">
@@ -343,7 +344,7 @@
 <p>2.详细创建第二个</p>
 <p>3.详细定义第一个</p>
 <p>两个ref关系类型或者表的删除时</p>
-<p>![image-20210619134837121](/Users/yjp/Library/Application Support/typora-user-images/image-20210619134837121.png)</p>
+<p><img src="https://se2.oss-cn-beijing.aliyuncs.com/uPic/image-20210619134837121.png" alt="image-20210619134837121"></p>
 <p>内嵌表属性</p>
 <p>创建过程 以及访问方式 用table将该属性转换为表</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create type dependents_t as table of person_t;</span><br><span class="line">create table emp(&#123;</span><br><span class="line">        eid int,</span><br><span class="line">        dependents dependtnts_t,</span><br><span class="line">                 primary key(eid)</span><br><span class="line">                 &#125;)nested table dependents store as dependents_t</span><br></pre></td></tr></table></figure>
