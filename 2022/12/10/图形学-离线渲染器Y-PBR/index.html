@@ -16,32 +16,19 @@
   <meta name="author" content="yjp">
   <meta name="keywords" content="">
   
-    <meta name="description" content="布林冯反射模型在光栅化后，需要给物体上色 这里记录一个上色模型 Blinn-Phong Reflectance Model 局部光照系统  如上图所示。一个物体的光照是由三部分组成的。环境光照，漫反射，镜面反射。 环境光照 在布林冯反射模型中，环境光照认为是一个常数。  漫反射  如上图所示，对于一个平面，入射光线的方向与平面的法线的夹角显然影响这个点的漫反射强度。 具体的来说，如果入射光的强度为">
-<meta property="og:type" content="article">
-<meta property="og:title" content="计算机图形学笔记1-布林冯反射模型">
-<meta property="og:url" content="https://yjpwzy1314.com/2022/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B01-%E5%B1%80%E9%83%A8%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="图形学-离线渲染器Y-PBR">
+<meta property="og:url" content="https://yjpwzy1314.com/2022/12/10/%E5%9B%BE%E5%BD%A2%E5%AD%A6-%E7%A6%BB%E7%BA%BF%E6%B8%B2%E6%9F%93%E5%99%A8Y-PBR/index.html">
 <meta property="og:site_name" content="yjp的个人小窝">
-<meta property="og:description" content="布林冯反射模型在光栅化后，需要给物体上色 这里记录一个上色模型 Blinn-Phong Reflectance Model 局部光照系统  如上图所示。一个物体的光照是由三部分组成的。环境光照，漫反射，镜面反射。 环境光照 在布林冯反射模型中，环境光照认为是一个常数。  漫反射  如上图所示，对于一个平面，入射光线的方向与平面的法线的夹角显然影响这个点的漫反射强度。 具体的来说，如果入射光的强度为">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304003951316.png">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304013527522.png">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304012835911.png">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304013238528.png">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304013711536.png">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304013845231.png">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304014117842.png">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304014536645.png">
-<meta property="og:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/phong.png">
-<meta property="article:published_time" content="2022-03-03T16:36:07.000Z">
-<meta property="article:modified_time" content="2022-03-03T17:52:49.188Z">
+<meta property="article:published_time" content="2022-12-10T05:15:13.000Z">
+<meta property="article:modified_time" content="2022-12-10T05:15:53.364Z">
 <meta property="article:author" content="yjp">
-<meta property="article:tag" content="计算机图形学">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304003951316.png">
   
   
   
-  <title>计算机图形学笔记1-布林冯反射模型 - yjp的个人小窝</title>
+  <title>图形学-离线渲染器Y-PBR - yjp的个人小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -126,7 +113,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                <span>Home</span>
               </a>
             </li>
           
@@ -138,7 +125,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                <span>Archives</span>
               </a>
             </li>
           
@@ -150,7 +137,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                <span>Categories</span>
               </a>
             </li>
           
@@ -162,7 +149,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                <span>Tags</span>
               </a>
             </li>
           
@@ -174,7 +161,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                <span>About</span>
               </a>
             </li>
           
@@ -182,15 +169,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -207,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="计算机图形学笔记1-布林冯反射模型"></span>
+            <span id="subtitle" data-typed-text="图形学-离线渲染器Y-PBR"></span>
           
         </div>
 
@@ -218,8 +206,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-03-04 00:36" pubdate>
-          March 4, 2022 am
+        <time datetime="2022-12-10 13:15" pubdate>
+          December 10, 2022 pm
         </time>
       </span>
     
@@ -230,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k words
+          0 words
         
       </span>
     
@@ -241,7 +229,7 @@
         
         
         
-          18 mins
+          1 mins
         
       </span>
     
@@ -279,42 +267,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">计算机图形学笔记1-布林冯反射模型</h1>
+            <h1 style="display: none">图形学-离线渲染器Y-PBR</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="布林冯反射模型"><a href="#布林冯反射模型" class="headerlink" title="布林冯反射模型"></a>布林冯反射模型</h2><p>在光栅化后，需要给物体上色</p>
-<p>这里记录一个上色模型 Blinn-Phong Reflectance Model</p>
-<p>局部光照系统</p>
-<p><img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304003951316.png" srcset="/img/loading.gif" lazyload alt="image-20220304003951316"></p>
-<p>如上图所示。一个物体的光照是由三部分组成的。环境光照，漫反射，镜面反射。</p>
-<p><strong>环境光照</strong></p>
-<p>在布林冯反射模型中，环境光照认为是一个常数。</p>
-<p><img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304013527522.png" srcset="/img/loading.gif" lazyload alt="image-20220304013527522"></p>
-<p><strong>漫反射</strong></p>
-<p><img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304012835911.png" srcset="/img/loading.gif" lazyload alt="image-20220304012835911"></p>
-<p>如上图所示，对于一个平面，入射光线的方向与平面的法线的夹角显然影响这个点的漫反射强度。</p>
-<p>具体的来说，如果入射光的强度为n 那么入射平面接收到的光照强度为 n*cos(l,n)</p>
-<p>同时在光的传播过程中，接受点与光源的距离也会影响光的强度。</p>
-<p>综合以上<img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304013238528.png" srcset="/img/loading.gif" lazyload alt="image-20220304013238528"></p>
-<p>其中kd是该点的漫反射系数。max(0,n*l)是为了剔除与法线方向夹脚大于90度的入射光线（这种情况下没有物理意义）</p>
-<p>这里要注意的漫反射的反射光强度和出射方向无关。</p>
-<p><strong>镜面反射</strong></p>
-<p>镜面反射的强度与人的观察角度有关系。即下图中R与V的夹角</p>
-<p><img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304013711536.png" srcset="/img/loading.gif" lazyload alt="image-20220304013711536"></p>
-<p>但是计算V是很麻烦的。布林冯模型中的替代是计算半程向量</p>
-<p><img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304013845231.png" srcset="/img/loading.gif" lazyload alt="image-20220304013845231"></p>
-<p>这种情况的近似也会有很好的结果。</p>
-<p>最终的镜面反射光强计算公式为：<img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304014117842.png" srcset="/img/loading.gif" lazyload alt="image-20220304014117842"></p>
-<p>这里引入了一个指数P 我的理解是它的作用是控制夹角对光强的影响程度 随着夹角增大需要使光强变小的速度更快。</p>
-<p>直观的理解就是如果不引入指数P 在夹角为45度的时候还是有一定程度的高光。最终渲染出来的结果是高光部分很多。很影响观感。</p>
-<p><img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/image-20220304014536645.png" srcset="/img/loading.gif" lazyload alt="image-20220304014536645"></p>
-<h3 id="Hw3中布林冯反射模型部分"><a href="#Hw3中布林冯反射模型部分" class="headerlink" title="Hw3中布林冯反射模型部分"></a>Hw3中布林冯反射模型部分</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Eigen::Vector3f <span class="title">phong_fragment_shader</span><span class="params">(<span class="type">const</span> fragment_shader_payload&amp; payload)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Eigen::Vector3f ka = Eigen::<span class="built_in">Vector3f</span>(<span class="number">0.005</span>, <span class="number">0.005</span>, <span class="number">0.005</span>);</span><br><span class="line">    Eigen::Vector3f kd = payload.color;</span><br><span class="line">    Eigen::Vector3f ks = Eigen::<span class="built_in">Vector3f</span>(<span class="number">0.7937</span>, <span class="number">0.7937</span>, <span class="number">0.7937</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> l1 = light&#123;&#123;<span class="number">20</span>, <span class="number">20</span>, <span class="number">20</span>&#125;, &#123;<span class="number">500</span>, <span class="number">500</span>, <span class="number">500</span>&#125;&#125;;</span><br><span class="line">    <span class="keyword">auto</span> l2 = light&#123;&#123;<span class="number">-20</span>, <span class="number">20</span>, <span class="number">0</span>&#125;, &#123;<span class="number">500</span>, <span class="number">500</span>, <span class="number">500</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">    std::vector&lt;light&gt; lights = &#123;l1, l2&#125;;</span><br><span class="line">    Eigen::Vector3f amb_light_intensity&#123;<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>&#125;;</span><br><span class="line">    Eigen::Vector3f eye_pos&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> p = <span class="number">150</span>;</span><br><span class="line"></span><br><span class="line">    Eigen::Vector3f color = payload.color;</span><br><span class="line">    Eigen::Vector3f point = payload.view_pos;</span><br><span class="line">    Eigen::Vector3f normal = payload.normal;</span><br><span class="line"></span><br><span class="line">    Eigen::Vector3f result_color = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; light : lights)</span><br><span class="line">    &#123;</span><br><span class="line">        Eigen::Vector3f ambient=ka.<span class="built_in">cwiseProduct</span>(amb_light_intensity);</span><br><span class="line"></span><br><span class="line">        Eigen::Vector3f light_view=light.position-point;</span><br><span class="line">        Eigen::Vector3f eye_view=eye_pos-point;</span><br><span class="line"></span><br><span class="line">        <span class="type">double</span>  r=light_view.<span class="built_in">dot</span>(light_view); <span class="comment">//距离平方</span></span><br><span class="line">        <span class="comment">//漫反射</span></span><br><span class="line">        Eigen::Vector3f t= (light.intensity/r)*std::<span class="built_in">max</span>(<span class="number">0.f</span>,normal.<span class="built_in">dot</span>(light_view.<span class="built_in">normalized</span>()));</span><br><span class="line">        Eigen::Vector3f diffuse=kd.<span class="built_in">cwiseProduct</span>(t);</span><br><span class="line">        <span class="comment">//镜面反射</span></span><br><span class="line">        Eigen::Vector3f half=(eye_view+light_view).<span class="built_in">normalized</span>();</span><br><span class="line">        t=(light.intensity/r)*<span class="built_in">pow</span>(std::<span class="built_in">max</span>(<span class="number">0.f</span>,normal.<span class="built_in">dot</span>(half)),p);</span><br><span class="line">        Eigen::Vector3f specular=ks.<span class="built_in">cwiseProduct</span>(t);</span><br><span class="line">        result_color+=ambient;</span><br><span class="line">        result_color+=diffuse;</span><br><span class="line">        result_color+=specular;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> For each light source in the code, calculate what the *ambient*, *diffuse*, and *specular*</span></span><br><span class="line">        <span class="comment">// components are. Then, accumulate that result on the *result_color* object.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result_color * <span class="number">255.f</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>渲染出来的结果：</p>
-<p><img src="https://yjpp.oss-cn-hangzhou.aliyuncs.com/uPic/phong.png" srcset="/img/loading.gif" lazyload alt="phong"></p>
-
+                
                 
               </div>
             
@@ -322,13 +280,27 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/">#计算机图形学</a>
-      
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%9B%BE%E5%BD%A2%E5%AD%A6/" class="category-chain-item">图形学</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
     </div>
+  
   
 </div>
 
@@ -338,8 +310,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>计算机图形学笔记1-布林冯反射模型</div>
-      <div>https://yjpwzy1314.com/2022/03/04/计算机图形学笔记1-局部光照模型/</div>
+      <div>图形学-离线渲染器Y-PBR</div>
+      <div>https://yjpwzy1314.com/2022/12/10/图形学-离线渲染器Y-PBR/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +323,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 4, 2022</div>
+          <div>December 10, 2022</div>
         </div>
       
       
@@ -383,18 +355,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/05/%E6%9B%B2%E9%9D%A2%E5%92%8C%E6%9B%B2%E7%BA%BF/" title="曲面和曲线">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">曲面和曲线</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/06/08/DHCP/" title="DHCP,Routing">
-                        <span class="hidden-mobile">DHCP,Routing</span>
+                      <a href="/2022/12/10/%E5%9B%BE%E5%BD%A2%E5%AD%A6-%E5%8F%8C%E5%90%91%E8%B7%AF%E5%BE%84%E8%BF%BD%E8%B8%AA/" title="图形学-双向路径追踪">
+                        <span class="hidden-mobile">图形学-双向路径追踪</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -414,7 +380,10 @@
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
