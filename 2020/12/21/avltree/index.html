@@ -1,32 +1,169 @@
-extends includes/layout.pug
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>avltree | yjp的个人小窝</title><meta name="keywords" content="avltree"><meta name="author" content="yjp"><meta name="copyright" content="yjp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="二叉平衡搜索树（avl树）满足以下定义：  1：为二叉搜索树  2：左子树与右子树高度差不超过1  3: 左右子树均为avl树 主要实现了插入和删除操作 我们每个节点用一个int值记录当前节点的高度，叶子结点高度为1。 我们引入平衡因子的概念（BalancedFactor）来帮助恢复平衡。 插入操作：利用二叉搜索树的性质找到待插入的位置 插入后需要检查树是否平衡。 不平衡的可能情况有四种 LL，L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="avltree">
+<meta property="og:url" content="https://yjpwzy1314.com/2020/12/21/avltree/index.html">
+<meta property="og:site_name" content="yjp的个人小窝">
+<meta property="og:description" content="二叉平衡搜索树（avl树）满足以下定义：  1：为二叉搜索树  2：左子树与右子树高度差不超过1  3: 左右子树均为avl树 主要实现了插入和删除操作 我们每个节点用一个int值记录当前节点的高度，叶子结点高度为1。 我们引入平衡因子的概念（BalancedFactor）来帮助恢复平衡。 插入操作：利用二叉搜索树的性质找到待插入的位置 插入后需要检查树是否平衡。 不平衡的可能情况有四种 LL，L">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2020-12-21T03:53:21.000Z">
+<meta property="article:modified_time" content="2021-06-02T06:51:29.782Z">
+<meta property="article:author" content="yjp">
+<meta property="article:tag" content="avltree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yjpwzy1314.com/2020/12/21/avltree/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'avltree',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-06-02 14:51:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-    if theme.reward.enable && theme.reward.QR_code
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
-      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="yjp的个人小窝" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">yjp的个人小窝</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">avltree</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-12-21T03:53:21.000Z" title="Created 2020-12-21 11:53:21">2020-12-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-06-02T06:51:29.782Z" title="Updated 2021-06-02 14:51:29">2021-06-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="avltree"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>二叉平衡搜索树（avl树）满足以下定义：</p>
+<p> 1：为二叉搜索树</p>
+<p> 2：左子树与右子树高度差不超过1</p>
+<p> 3: 左右子树均为avl树</p>
+<p>主要实现了插入和删除操作</p>
+<p>我们每个节点用一个int值记录当前节点的高度，叶子结点高度为1。</p>
+<p>我们引入平衡因子的概念（BalancedFactor）来帮助恢复平衡。</p>
+<p>插入操作：利用二叉搜索树的性质找到待插入的位置</p>
+<p>插入后需要检查树是否平衡。</p>
+<p>不平衡的可能情况有四种</p>
+<p>LL，LR，RL，RR（其实这里应该有图然后来分析的，但是我目前没找到什么好用的工具x，以后再补上吧）</p>
+<p>LL：右旋即可</p>
+<p>LR：对当前节点的左子节点左旋变为LL情况，然后右旋即可</p>
+<p>RR：左旋</p>
+<p>RL：当前节点的右子节点右旋变为RR情况，然后左旋即可</p>
+<p>左旋和右旋的操作。俺就不多赘述了 ，网上比较多。</p>
+<p>删除操作：</p>
+<p> 如果要删除的节点不存在直接返回即可。</p>
+<p> 如果要删除的节点是叶子结点。直接删除。</p>
+<p> 如果要删除的节点只有一个子节点。用该子节点替换要删除的节点即可。</p>
+<p> 如果要删除的节点有两个子节点。找到该节点的右子树的最小节点。用该节点的值替换待删除节点的值。递归地在右子树删除最小节点（递归到删除叶子结点的情况）</p>
+<p>在每次删除操作完成后，更新节点高度，并检查avl树是否需要调整。</p>
+<p>avl树 java实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line">import  java.util.Queue;</span><br><span class="line"></span><br><span class="line">import java.util.LinkedList;</span><br><span class="line"></span><br><span class="line">public class avlTree &#123;</span><br><span class="line">    private  class Node&#123;</span><br><span class="line">        Node(int val)&#123;</span><br><span class="line">            this.val=val;</span><br><span class="line">            this.height=1;</span><br><span class="line">        &#125;</span><br><span class="line">        int val;</span><br><span class="line">        Node left;</span><br><span class="line">        Node  right;</span><br><span class="line">        int height;</span><br><span class="line">    &#125;</span><br><span class="line">    Node root;</span><br><span class="line">    void del(int val)&#123;</span><br><span class="line">        this.root=del(root,val);</span><br><span class="line">    &#125;</span><br><span class="line">    void  insert(int val)&#123;</span><br><span class="line">        this.root=insert(root,val);</span><br><span class="line">    &#125;</span><br><span class="line">    void updateheight(Node t)&#123;</span><br><span class="line">        t.height=Math.max(getheight(t.left),getheight(t.right))+1;</span><br><span class="line">    &#125;</span><br><span class="line">    Node insert(Node root,int val)&#123;</span><br><span class="line">        Node newnode=new Node(val);</span><br><span class="line">        if(root==null)</span><br><span class="line">            return newnode;</span><br><span class="line">        if(val&gt;root.val)</span><br><span class="line">            root.right=insert(root.right,val);</span><br><span class="line">        else</span><br><span class="line">            root.left=insert(root.left,val);</span><br><span class="line">        updateheight(root);</span><br><span class="line">        int balfactor=getBalancedFactor(root);</span><br><span class="line">        int lbalfactor=getBalancedFactor(root.left);</span><br><span class="line">        int rbalfactor=getBalancedFactor(root.right);</span><br><span class="line">        if(balfactor&gt;1 &amp;&amp; lbalfactor&gt;=0)</span><br><span class="line">            return  rroate(root); //LL情况 进行右旋</span><br><span class="line">        if(balfactor&gt;1 &amp;&amp; lbalfactor&lt;0)</span><br><span class="line">        &#123;</span><br><span class="line">            root.left=lroate(root.left);</span><br><span class="line">            return  rroate(root); //先左旋变成lr 再右旋</span><br><span class="line">        &#125;</span><br><span class="line">        if(balfactor&lt;-1 &amp;&amp; rbalfactor&lt;0)</span><br><span class="line">            return  lroate(root); //rr</span><br><span class="line">       if(balfactor&lt;-1 &amp;&amp; rbalfactor&gt;=0)</span><br><span class="line">       &#123;</span><br><span class="line">           root.right=rroate(root.right);</span><br><span class="line">           return  lroate(root);</span><br><span class="line">       &#125;</span><br><span class="line">       return  root;</span><br><span class="line">    &#125;</span><br><span class="line">    Node lroate(Node  y)&#123;  // 左旋</span><br><span class="line">        Node  x=y.right;</span><br><span class="line">        Node  temp=x.left;</span><br><span class="line">        x.left=y;</span><br><span class="line">        y.right=temp;</span><br><span class="line">        updateheight(y);</span><br><span class="line">        updateheight(x);</span><br><span class="line">        return  x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node rroate(Node y)&#123;</span><br><span class="line">        Node x=y.left;</span><br><span class="line">        Node temp=x.right;</span><br><span class="line">        x.right=y;</span><br><span class="line">        y.left=temp;</span><br><span class="line">        updateheight(y);</span><br><span class="line">        updateheight(x);</span><br><span class="line">        return  x;</span><br><span class="line">    &#125;</span><br><span class="line">    void pr()&#123;</span><br><span class="line">        Queue&lt;Node&gt; q=new LinkedList&lt;&gt;();</span><br><span class="line">        q.add(root);</span><br><span class="line">        int curheight=getheight(root);</span><br><span class="line">        while(q.size()&gt;0)&#123;</span><br><span class="line">            Node t=q.poll();</span><br><span class="line">            if(t.height!=curheight)&#123;</span><br><span class="line">                curheight--;</span><br><span class="line">                System.out.println();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print(t.val+&quot;  &quot;);</span><br><span class="line">            if(t.left!=null) q.add(t.left);</span><br><span class="line">            if(t.right!=null) q.add(t.right);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public      int getheight(Node node)&#123;</span><br><span class="line">        if(node==null) return  0; return  node.height;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public  int getBalancedFactor(Node node)&#123;</span><br><span class="line"></span><br><span class="line">        return  node==null?0:getheight(node.left)-getheight(node.right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public  boolean isBST(Node rt)&#123;</span><br><span class="line">        if(rt==null) return  true;</span><br><span class="line">        if(rt.left==null &amp;&amp; rt.right==null) return  true;</span><br><span class="line">        if(rt.left==null)</span><br><span class="line">            return  rt.right.val&gt;rt.val &amp;&amp; isBST(rt.right);</span><br><span class="line">        if(rt.right==null)</span><br><span class="line">            return  rt.left.val&lt;rt.val &amp;&amp; isBST(rt.left);</span><br><span class="line">        return  rt.left.val&lt;rt.val &amp;&amp; rt.right.val&gt;rt.val &amp;&amp; isBST(rt.left) &amp;&amp; isBST(rt.right);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    Node  del(Node t,int val)&#123;</span><br><span class="line">            if(t==null) return null;  //val 不存在</span><br><span class="line">            if(t.val==val)</span><br><span class="line">            &#123;</span><br><span class="line">                if(t.left==null &amp;&amp; t.right==null) return  null;</span><br><span class="line">                else if(t.left==null)  t=t.right;</span><br><span class="line">                else if(t.right==null) t=t.left;</span><br><span class="line">                else &#123;    //左右子树均不为空</span><br><span class="line">                    Node tar=t.right;</span><br><span class="line">                    while(tar.left!=null)</span><br><span class="line">                        tar=tar.left;</span><br><span class="line">                    t.val=tar.val;</span><br><span class="line">                    t.right=del(t.right,t.val); //</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if(val&gt;t.val)</span><br><span class="line">                t.right=del(t.right,t.val);</span><br><span class="line">            if(val&lt;t.val)</span><br><span class="line">                t.left=del(t.left,t.val);</span><br><span class="line">            updateheight(t);</span><br><span class="line">            int balfactor=getBalancedFactor(t);</span><br><span class="line">            int lbalfactor=getBalancedFactor(t.left);</span><br><span class="line">            int rbalfactor=getBalancedFactor(t.right);</span><br><span class="line">            if(balfactor&gt;1 &amp;&amp; lbalfactor&gt;=0)</span><br><span class="line">                return  rroate(root); //LL情况 进行右旋</span><br><span class="line">            if(balfactor&gt;1 &amp;&amp; lbalfactor&lt;0)</span><br><span class="line">            &#123;</span><br><span class="line">                t.left=lroate(t.left);</span><br><span class="line">                return  rroate(t); //先左旋变成lr 再右旋</span><br><span class="line">            &#125;</span><br><span class="line">            if(balfactor&lt;-1 &amp;&amp; rbalfactor&lt;0)</span><br><span class="line">                return  lroate(t); //rr</span><br><span class="line">            if(balfactor&lt;-1 &amp;&amp; rbalfactor&gt;=0)</span><br><span class="line">            &#123;</span><br><span class="line">                t.right=rroate(t.right);</span><br><span class="line">                return  lroate(t);</span><br><span class="line">            &#125;</span><br><span class="line">        return  t;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    public  static  void main(String[] args)&#123;</span><br><span class="line">        int[] a=&#123;16,3,7,11,9, 28,18,14,15&#125;;</span><br><span class="line">        avlTree tree=new avlTree();</span><br><span class="line">        for(int x:a)</span><br><span class="line">        &#123;</span><br><span class="line">            tree.insert(x);</span><br><span class="line">            tree.pr();</span><br><span class="line">            System.out.println();</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://yjpwzy1314.com">yjp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://yjpwzy1314.com/2020/12/21/avltree/">https://yjpwzy1314.com/2020/12/21/avltree/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/avltree/">avltree</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/12/28/printCycles/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">printCycles</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/21/first/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">first</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">yjp</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/05/%E6%9B%B2%E9%9D%A2%E5%92%8C%E6%9B%B2%E7%BA%BF/" title="曲面和曲线"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="曲面和曲线"/></a><div class="content"><a class="title" href="/2022/03/05/%E6%9B%B2%E9%9D%A2%E5%92%8C%E6%9B%B2%E7%BA%BF/" title="曲面和曲线">曲面和曲线</a><time datetime="2022-03-05T08:19:35.000Z" title="Created 2022-03-05 16:19:35">2022-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B01-%E5%B1%80%E9%83%A8%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/" title="计算机图形学笔记1-布林冯反射模型"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机图形学笔记1-布林冯反射模型"/></a><div class="content"><a class="title" href="/2022/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%AC%94%E8%AE%B01-%E5%B1%80%E9%83%A8%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/" title="计算机图形学笔记1-布林冯反射模型">计算机图形学笔记1-布林冯反射模型</a><time datetime="2022-03-03T16:36:07.000Z" title="Created 2022-03-04 00:36:07">2022-03-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/08/DHCP/" title="DHCP,Routing"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DHCP,Routing"/></a><div class="content"><a class="title" href="/2021/06/08/DHCP/" title="DHCP,Routing">DHCP,Routing</a><time datetime="2021-06-08T11:19:59.000Z" title="Created 2021-06-08 19:19:59">2021-06-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/08/OSI%E6%A8%A1%E5%9E%8B/" title="OSI模型"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OSI模型"/></a><div class="content"><a class="title" href="/2021/06/08/OSI%E6%A8%A1%E5%9E%8B/" title="OSI模型">OSI模型</a><time datetime="2021-06-08T03:31:49.000Z" title="Created 2021-06-08 11:31:49">2021-06-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/06/02/ACL/" title="ACL"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ACL"/></a><div class="content"><a class="title" href="/2021/06/02/ACL/" title="ACL">ACL</a><time datetime="2021-06-02T07:06:25.000Z" title="Created 2021-06-02 15:06:25">2021-06-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By yjp</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
